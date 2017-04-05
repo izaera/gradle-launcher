@@ -1,6 +1,6 @@
 # gradle-launcher
 
-A nodejs global script that searches for `gradlew `up in the FS hierarchy and launches it.
+A nodejs global script that searches for `gradlew` up in the FS hierarchy and launches it.
 
 This node package installs a global CLI named `gradlew` which, when run in a directory, 
 tries to locate a valid `gradlew` script by looking up in the filesystem hierarchy. If 
