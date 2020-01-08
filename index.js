@@ -2,25 +2,37 @@
 
 var path = require('path');
 var fs = require('fs');
+var os = require('os');
 var spawnSync = require("child_process").spawnSync;
 
-var dir = path.resolve('.');
-while (dir != '/') {
-	if (fs.existsSync(dir+'/gradlew')) {
-	    console.log('Found gradlew at',dir);
+var GRADLEW = os.platform() === 'win32' ? 'gradlew.bat' : 'gradlew';
 
-			var proc = spawnSync(
-				dir+'/gradlew', 
-				process.argv.slice(2), 
-				{
-					stdio: 'inherit'
-				}
-			);
-				
-			process.exit(proc.status);
+var dir = path.resolve('.');
+
+while (true) {
+	var gradlewPath = path.join(dir, GRADLEW);
+
+	if (fs.existsSync(gradlewPath)) {
+		console.log('Found', GRADLEW, 'at', dir);
+
+		var proc = spawnSync(
+			gradlewPath,
+			process.argv.slice(2),
+			{
+				stdio: 'inherit'
+			}
+		);
+
+		process.exit(proc.status);
 	}
-	
-	dir = path.dirname(dir);
+
+	var parentDir = path.dirname(dir);
+
+	if (parentDir === dir) {
+		break;
+	}
+
+	dir = parentDir;
 }
 
-console.log('No gradlew found up in the FS hierarchy. Sorry.')
+console.log('No', GRADLEW, 'found up in the FS hierarchy. Sorry.')
