@@ -1,6 +1,6 @@
 {
   "name": "gradle-launcher",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "A nodejs global script that searches for gradlew up in the FS hierarchy and launches it.",
   "repository": "https://github.com/izaera/gradle-launcher",
   "main": "index.js",
